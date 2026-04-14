@@ -1,0 +1,32 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+  identity:
+    hostname: ubuntu-lab
+    username: ubuntu
+    password: "$6$/EtgBrWjQbRjsnyK$iRg88CORiUg6EMbXin9cFZbNiJIPH534SEb09R57eDLgpzb6.jclNM5QQNSwmlWpMtT7cGG.cPzYhTKFgBwUY."
+  ssh:
+    install-server: true
+    allow-pw: true
+  network:
+    network:
+      version: 2
+      ethernets:
+        ens160:
+          dhcp4: true
+  storage:
+    layout:
+      name: direct
+  packages:
+    - openssh-server
+    - curl
+    - git
+    - open-vm-tools
+  late-commands:
+    - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' >> /target/etc/sudoers.d/ubuntu
+    - chmod 440 /target/etc/sudoers.d/ubuntu
+  user-data:
+    disable_root: false
